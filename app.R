@@ -4,7 +4,7 @@ library(readxl)
 library(ggplot2)
 library(svglite)
 
-# Define UI for application that draws the barplot
+# Define User Interface for application that draws the barplot
 ui <- fluidPage(
   theme = "style.css",
   tags$div(class="banner" , tags$img(src='banner.jpg')),
@@ -90,6 +90,7 @@ server <- function(input, output) {
         
         table2$Intervention<-as.factor(table2$Intervention)
         
+        #Calculation of cumulative percentages to draw dashed lines
         if(dashedline == 1){
           cum_sum_0<-cumsum(table2[table2$Intervention=="0","Percent"])
           cum_sum_1<-cumsum(table2[table2$Intervention=="1","Percent"])
@@ -98,6 +99,7 @@ server <- function(input, output) {
         levels(table2$Intervention)[levels(table2$Intervention)=="0"] <- label_0
         levels(table2$Intervention)[levels(table2$Intervention)=="1"] <- label_1
         
+        #With dashed lines
         if(dashedline == 1){
           graph<-ggplot(table2, aes(y=Percent, x=Intervention, fill=mRS,label=round(Percent*100))) +
             geom_bar(stat="identity", position="fill", colour="black", width = barwidth)+
@@ -116,6 +118,7 @@ server <- function(input, output) {
             ggtitle(paste(title, " (N=", nrow(dataset), ")", sep=""))
         }
         
+        #Without dashed lines
         if(dashedline == 2){
           graph<-ggplot(table2, aes(y=Percent, x=Intervention, fill=mRS,label=round(Percent*100))) +
             geom_bar(stat="identity", position="fill", colour="black", width = barwidth)+
