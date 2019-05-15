@@ -4,7 +4,7 @@ library(readxl)
 library(ggplot2)
 library(svglite)
 
-# Define User Interface for application that draws the barplot
+# Define User Interface for the application that draws the barplot
 ui <- fluidPage(
   theme = "style.css",
   tags$div(class="banner" , tags$img(src='banner.jpg')),
