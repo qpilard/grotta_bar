@@ -4,8 +4,7 @@ library(readxl)
 library(ggplot2)
 library(svglite)
 
-
-# Define UI for application that draws a histogram
+# Define UI for application that draws the barplot
 ui <- fluidPage(
   theme = "style.css",
   tags$div(class="banner" , tags$img(src='banner.jpg')),
@@ -55,7 +54,7 @@ ui <- fluidPage(
   # Main panel for displaying outputs ----
   mainPanel(
     
-    # Output: Histogram ----
+    # Output: Barplot ----
     conditionalPanel(condition = 'input.action',
                       plotOutput(outputId = "plot1"),
                       tags$div(class="Exportation_param",
@@ -74,7 +73,7 @@ ui <- fluidPage(
 )
 
 
-# Define server logic required to draw a histogram
+# Define server logic required to draw a barplot
 server <- function(input, output) {
   
       #Color
@@ -148,6 +147,7 @@ server <- function(input, output) {
         print(plotInput())
       })
       
+      #Exportation parameters
       output$downloadPlot_png <- downloadHandler(
         filename = 'barplot.png',
         content = function(file) {
